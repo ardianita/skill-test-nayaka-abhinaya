@@ -56,8 +56,35 @@ Route::get('/language', function () {
     return response()->json($data, 200);
 });
 
-Route::post('/language', function (Request $request) {
+Route::get('/languages', function () {
     $datas = [
+        [
+            "id" => 1,
+            "language" => "C",
+            "appeared" => 1972,
+            "created" => [
+                "Dennis Ritchie"
+            ],
+            "functional" => true,
+            "object-oriented" => false,
+            "relation" => [
+                "influenced-by" => [
+                    "B",
+                    "ALGOL 68",
+                    "Assembly",
+                    "FORTRAN"
+                ],
+                "influences" => [
+                    "C++",
+                    "Objective-C",
+                    "C#",
+                    "Java",
+                    "JavaScript",
+                    "PHP",
+                    "Go"
+                ]
+            ]
+        ],
         [
             "id" => 2,
             "language" => "Go",
@@ -115,9 +142,98 @@ Route::post('/language', function (Request $request) {
         ],
     ];
 
-    $languages[] = $datas;
-
     return response()->json($datas, 200);
+});
+
+Route::get('/language/{id}', function ($id) {
+    $datas = [
+        [
+            "id" => 1,
+            "language" => "C",
+            "appeared" => 1972,
+            "created" => [
+                "Dennis Ritchie"
+            ],
+            "functional" => true,
+            "object-oriented" => false,
+            "relation" => [
+                "influenced-by" => [
+                    "B",
+                    "ALGOL 68",
+                    "Assembly",
+                    "FORTRAN"
+                ],
+                "influences" => [
+                    "C++",
+                    "Objective-C",
+                    "C#",
+                    "Java",
+                    "JavaScript",
+                    "PHP",
+                    "Go"
+                ]
+            ]
+        ],
+        [
+            "id" => 2,
+            "language" => "Go",
+            "appeared" => 2009,
+            "created" => [
+                "Robert Griesemer",
+                "Rob Pike",
+                "Ken Thompson"
+            ],
+            "functional" => true,
+            "object-oriented" => false,
+            "relation" => [
+                "influenced-by" => [
+                    "C",
+                    "Python",
+                    "Pascal",
+                    "Smalltalk",
+                    "Modula"
+                ],
+                "influences" => [
+                    "Odin",
+                    "Crystal",
+                    "Zig"
+                ]
+            ]
+        ],
+        [
+            "id" => 3,
+            "language" => "Python",
+            "appeared" => 1991,
+            "created" => [
+                "Guido van Rossum"
+            ],
+            "functional" => true,
+            "object-oriented" => true,
+            "relation" => [
+                "influenced-by" => [
+                    "C",
+                    "C++",
+                    "ALGOL 68",
+                    "Ada",
+                    "Haskell",
+                    "Java",
+                    "Lisp"
+                ],
+                "influences" => [
+                    "Go",
+                    "CoffeeScript",
+                    "JavaScript",
+                    "Julia",
+                    "Ruby",
+                    "Swift"
+                ]
+            ]
+        ],
+    ];
+
+    $language = collect($datas)->where('id', $id)->first();
+
+    return response()->json($language, 200);
 });
 
 Route::get('/palindrome/{param}', [PalindromeController::class, 'palindrome']);
